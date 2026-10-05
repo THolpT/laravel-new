@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('firstName');
             $table->string('middleName');
             $table->string('lastName');
-            $table->dateTime('birthday');
-            $table->foreignId('group_id')->constrained('groups');
+            $table->date('birthday');
+            $table->foreignId('group_id')->nullable()->constrained('groups');
             $table->timestamps();
         });
     }
