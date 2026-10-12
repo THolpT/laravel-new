@@ -22,46 +22,65 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('students.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Student $student)
     {
-        //
+        $data = $request->validate([
+            'firstName' => ["string", "required"],
+            'lastName' => ["string", "required"],
+            'middleName' => ["string", "required"],
+            'birthday' => ["date", "required"],
+        ]);
+
+        $student->create($data);
+
+        return redirect()->route('students.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student)
     {
-        //
+        return view('students.show', compact('student'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Student $student)
     {
-        //
+        return view('students.edit', compact('student'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Student $student)
     {
-        //
-    }
+        $data = $request->validate([
+            'firstName' => ["string", "required"],
+            'lastName' => ["string", "required"],
+            'middleName' => ["string", "required"],
+            'birthday' => ["date", "required"],
+        ]);
 
+        $student->update($data);
+
+        return redirect()->route('students.index');
+    }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return redirect()->route('students.index');
     }
 }
